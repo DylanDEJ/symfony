@@ -1,5 +1,5 @@
 {
-    "name": "dylan_000/wshop",
+    "name": "henry/webshop",
     "license": "proprietary",
     "type": "project",
     "autoload": {
@@ -21,9 +21,10 @@
     },
     "require": {
         "php": ">=5.5.9",
-        "datatables/datatables": "^1.10",
         "doctrine/doctrine-bundle": "^1.6",
+        "sensio/generator-bundle": "^3.0",
         "doctrine/orm": "^2.5",
+        "friendsofsymfony/user-bundle": "~2.0",
         "incenteev/composer-parameter-handler": "^2.0",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^3.0.2",
@@ -31,10 +32,10 @@
         "symfony/polyfill-apcu": "^1.0",
         "symfony/swiftmailer-bundle": "^2.3.10",
         "symfony/symfony": "3.3.*",
-        "twig/twig": "^1.0||^2.0"
+        "twig/twig": "^1.0||^2.0",
+        "ninsuo/symfony-collection": "dev-master"
     },
     "require-dev": {
-        "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0"
     },
     "scripts": {
@@ -47,10 +48,12 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
         "post-install-cmd": [
-            "@symfony-scripts"
+            "@symfony-scripts",
+            "Fuz\\Symfony\\Collection\\ScriptHandler::postInstall"
         ],
         "post-update-cmd": [
-            "@symfony-scripts"
+            "@symfony-scripts",
+            "Fuz\\Symfony\\Collection\\ScriptHandler::postUpdate"
         ]
     },
     "config": {
@@ -65,7 +68,6 @@
         "symfony-assets-install": "relative",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
-        },
-        "branch-alias": null
+        }
     }
 }

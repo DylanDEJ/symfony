@@ -1,4 +1,4 @@
-wshop
-=====
+webshop
+=======
 
-A Symfony project created on June 7, 2017, 1:59 pm.
+A Symfony project created on June 13, 2017, 11:02 am.

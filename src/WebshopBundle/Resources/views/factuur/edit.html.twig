@@ -1,0 +1,39 @@
+{% extends 'WebshopBundle::base.html.twig' %}
+
+{% block body %}
+    <h1>Factuur edit</h1>
+
+{% if is_granted("ROLE_ADMIN") %}
+    {% form_theme edit_form 'jquery.collection.html.twig' %}
+    {{ form_start(edit_form) }}
+    {{ form_widget(edit_form) }}
+    <a href="{{ path('factuur_index') }}">
+        <button type="button" class="btn btn-info col-lg-2 left">Back to List</button>
+    </a>
+    <button type="submit" class="btn btn-primary col-lg-2 center-block col-lg-2">Save</button>
+    {{ form_end(edit_form) }}
+
+    {{ form_start(delete_form) }}
+    <button type="submit" class="btn btn-danger col-lg-2 pull-right">Delete</button>
+    {{ form_end(delete_form) }}
+
+{% else %}
+    <h3>U dient eerst als adminUser aan te melden!</h3>
+{% endif %}
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.collection.js') }}"></script>
+
+    <script type="text/javascript">
+        $('.my-selector').collection({
+            up: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up"></span></a>',
+            down: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-arrow-down"></span></a>',
+            add: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span></a>',
+            remove: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a>'
+        });
+
+    </script>
+{% endblock %}

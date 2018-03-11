@@ -8,10 +8,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="homepage")
      */
     public function indexAction()
     {
-        return $this->render('WebshopBundle:Default:index.html.twig');
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $product = $em->getRepository('WebshopBundle:Producten')->findAll();
+
+        return $this->render('WebshopBundle:Default:index.html.twig',
+            [
+                'name' => 'Hallo',
+                'body' => 'dit is de body',
+                'producten' => $product,
+            ]);
     }
 }

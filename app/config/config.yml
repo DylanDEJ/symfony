@@ -3,16 +3,19 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@WebshopBundle/Resources/config/services.yml" }
-    - { resource: "@WebshopBundle/Resources/config/config.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
-    image_directory: '%kernel.project_dir%/web/uploads/images'
+    images_directory: '%kernel.project_dir%/web/uploads/images'
+    download_image: '/uploads/images'
+
+
 framework:
     #esi: ~
     #translator: { fallbacks: ['%locale%'] }
+    translator: ~
     secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
@@ -38,7 +41,9 @@ framework:
 # Twig Configuration
 twig:
     debug: '%kernel.debug%'
-    strict_variables: '%kernel.debug%'
+    form_themes: ['bootstrap_3_horizontal_layout.html.twig']
+    globals:
+        logodir: '%download_image%'
 
 # Doctrine Configuration
 doctrine:
@@ -69,3 +74,12 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+# app/config/config.yml
+fos_user:
+    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    firewall_name: main
+    user_class: WebshopBundle\Entity\User
+    from_email:
+        address: "%mailer_user%"
+        sender_name: "%mailer_user%"

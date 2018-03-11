@@ -1,42 +1,63 @@
+{% extends '@Webshop/base.html.twig' %}
+
 {% block body %}
-    <h1>"SHOPPING-CART</h1>
+    <h1>SHOPPING-CART</h1>
 
     <ul class="thumbnails">
 
-        {% if empty is defined %}
+        {% if empty %}
             <h5>Your shopping cart is empty.</h5>
         {% endif %}
         {% set cart = app.session.get('cart') %}
+        {% set total = 0 %}
+        {% set count = 0 %}
 
+        {% if product %}
 
-        {% if product is defined %}
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-responsive">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Quantity</th>
+                            <th>Code</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
+                        {% for key, item in cart %}
+                            <tr>
+                                <td>{{ key }}</td>
+                                <td>{{ item }}</td>
 
-            <ul class="thumbnails">
-                {% if app.session.flashBag.has('notice') %}
-                    <div class="panel">
-                        <div class="flash-notice panel-body">
-                            {% for flashMessage in app.session.flashbag.get('notice') %}
-                                {{ flashMessage }}
-                            {% endfor %}
-                        </div>
-                    </div>
-                {% endif %}
-                {% for key, item in cart %}
-                    <p>ID:{{ key }}</p>
-                    <p>Quantity:{{ item }}</p>
-                    <button class="btn btn-primary"><a href="{{ path('cart_remove', {'id':     key}) }}">Remove</a></button>
+                                {% for row in product %}
+                                    {% if row.id == key %}
+                                        <td>{{ row.omschrijving }}</td>
+                                        <td>€{{ row.prijs | number_format(2)  }}</td>
+                                        <td>€{{ (row.prijs * item) | number_format(2) }}</td>
+                                        {% set total = total + (row.prijs * item)  %}
+                                    {% endif %}
+                                {% endfor %}
 
+                                <td><a href="{{ path('cart_remove', {'id': key}) }}"><button class="btn btn-danger">Remove</button></a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
 
-
-
-
-                {% endfor %}
-            </ul>
+                </div>
+            </div>
 
         {% endif %}
     </ul>
 
-    <a href="{{ path('cart') }}">Products</a>
+    <H4 class="right">Total in Cart = €{{ total | number_format(2) }}</H4>
+    <a href="{{ path('homepage') }}"><button type="button" class="btn btn-info col-lg-2 right">Go on shopping!</button></a>
+    <a href="{{ path('checkout') }}"><button type="button" class="btn btn-success col-lg-2 pull-right">Checkout!</button></a>
+
 
 {% endblock %}

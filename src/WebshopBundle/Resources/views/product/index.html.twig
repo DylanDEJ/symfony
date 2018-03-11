@@ -1,0 +1,48 @@
+{% extends '@Webshop/base.html.twig' %}
+
+
+{% block body %}
+    <h1>Products list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Imagepath</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td><a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
+                <td>{{ product.code }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price }}</td>
+                <td><img src="/uploads/images/{{ product.imagepath }}" /></td>
+                <td>
+                    <ul>
+
+                            <a button type="button" class="btn btn-primary" href="{{ path('product_show', { 'id': product.id }) }}">show</a>
+
+                            <a button type="button" class="btn btn-success" href="{{ path('product_edit', { 'id': product.id }) }}">edit</a>
+
+                            <a button type="button" class="btn btn-info" href="{{ path('cart_add', {'id': product.id}) }}">add</a>
+                            <a button type="button" class="btn btn-danger" href="{{ path('product_guestdelete' , {'id': product.id}) }}">delete</a>
+
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('product_new') }}">Create a new product</a>
+        </li>
+    </ul>
+{% endblock %}

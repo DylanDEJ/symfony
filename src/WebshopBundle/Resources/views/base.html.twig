@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('bundles/webshop/css/bootstrap.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/webshop/css/bootstrap-theme.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/webshop/css/jquery.dataTables.min.css') }}">
+        <script src="{{ asset('bundles/webshop/js/jquery-3.2.1.min.js') }}"></script>
+        <script src="{{ asset('bundles/webshop/js/bootstrap.js') }}"></script>
+        <script src="{{ asset('bundles/webshop/js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('bundles/webshop/js/dataTables.buttons.min.js') }}"></script>
+        <script src="{{ asset('bundles/webshop/js/buttons.html5.min.js') }}"></script>
+        <script src="{{ asset('bundles/webshop/js/pdfmake.min.js') }}"></script>
+        <script src="{{ asset('bundles/webshop/js/jszip.min.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('bundles/webshop/css/buttons.dataTables.min.css') }}">
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        <script type="text/javascript">$("table").dataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'pdf',
+                    'excel',
+                    'csv'
+                ]
+            });</script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

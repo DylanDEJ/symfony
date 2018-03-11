@@ -1,0 +1,42 @@
+{% block body %}
+    <h1>"SHOPPING-CART</h1>
+
+    <ul class="thumbnails">
+
+        {% if empty is defined %}
+            <h5>Your shopping cart is empty.</h5>
+        {% endif %}
+        {% set cart = app.session.get('cart') %}
+
+
+        {% if product is defined %}
+
+
+            <ul class="thumbnails">
+                {% if app.session.flashBag.has('notice') %}
+                    <div class="panel">
+                        <div class="flash-notice panel-body">
+                            {% for flashMessage in app.session.flashbag.get('notice') %}
+                                {{ flashMessage }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                {% for key, item in cart %}
+                    <p>ID:{{ key }}</p>
+                    <p>Quantity:{{ item }}</p>
+                    <button class="btn btn-primary"><a href="{{ path('cart_remove', {'id':     key}) }}">Remove</a></button>
+
+
+
+
+
+                {% endfor %}
+            </ul>
+
+        {% endif %}
+    </ul>
+
+    <a href="{{ path('cart') }}">Products</a>
+
+{% endblock %}
